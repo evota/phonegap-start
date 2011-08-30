@@ -4,15 +4,15 @@
 	id		= "com.phonegap.getting.started"
 	version 	= "1.0.0">
 
-	<name>PhoneGap: Getting Started</name>
+	<name>PhoneGap: TechEd Application</name>
 
 	<description>
-		A template for getting started with PhoneGap development and build.phonegap.com
+		A quick tuturial for updating data
 	</description>
 
-	<author href="http://alunny.github.com"
-		email="andrew.lunny@nitobi.com">
-		Andrew Lunny
+	<author href="http://evota.github.com"
+		email="eric.vota@paccoast.com">
+		Eric Vota
 	</author>
 
 	<gap:platforms>
