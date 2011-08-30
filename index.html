@@ -20,44 +20,60 @@
 		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
 		
 		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
+			<title>SAP Tech Ed</title> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+<!-- JQuery Load Stuff -->
+<script type="text/javascript">
+function GetMultiplePlants(){
+			$.getJSON('http://lumber.corporate.paccoast.com:1080/sap/zjson_teched?callback=?',function(data){
+				$.each(data.plants, function(i,plant){
+					var plantDetailDivId = plant.plantId+"detail";
+					var header = "<h3>"+plant.plantName+"</h3>";
+					var address = "<p>"+ plant.plantStreet + "<br/>" +
+										plant.plantCity + ", " + plant.plantState + "  " + plant.plantZipCode +"</p>";				
+					var plantListDiv =
+										"<div data-role='collapsible' data-collapsed='true' id='"+plantDetailDivId+"'>" +			
+										header +
+										address +
+										"</div>";
+					$('#PlantListing').append(plantListDiv);
+					$('#MainPage').trigger("enhance");			
+				});
+			$.mobile.changePage("#blah");	
+			});
+			
+}
+</script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>	
+	<script type="text/javascript">
+	$('#MainPage').live('pagebeforecreate', function() {
+		GetMultiplePlants();
+		});
+</script>
 		
 	</head>
-	<body>
- 		<div id="title_bar">Phone<strong>Gap</strong> Training App</div>
-
-		<div id="welcome" class="view">
-		  <div class="app_button" id="map_button">Show My Location</div>
-  	      <div class="app_button" id="settings_button">Settings</div>
+<div data-role="page" id="MainPage">
+	<div data-role="header">
+		<h1>SAP TechEd 2011</h1>
+	</div><!-- /header -->
+	<div data-role="content">	
+		<p>Loading....</p>
+	</div> <!-- /content -->
+</div> <!-- /MainPage -->
+<div data-role="page" id="blah">
+	<div data-role="header">
+		<p>This is a list of plants in my company</p>
+	</div>
+	<div data-role="content">
+		<div id="PlantListing">
+	<!--	<div data-role="collapsible" id="PlantTemplate" data-collapsed="true">
+			<h1>Plant 1</h1>
+			<p>Details of Plant 1</p>
+			</div>
+	-->
 		</div>
-
-		<div id="map" class="view">
-		  <div class="map_image">
-              <img id="static_map" src="assets/img/staticmap.png">
-		  </div>
-		  <p>This is where you are</p>
-		  <div class="app_button" id="welcome_button">Go Back</div>
-		</div>
-
-		<div id="settings" class="view">
-		  <form id="settings_form">
-		    <fieldset>
-		      <legend>Map Type</legend>
-			  <input type="radio" name="map" value="roadmap" checked>Road Map<br/>
-		      <input type="radio" name="map" value="satellite">Satellite<br/>
-		      <input type="radio" name="map" value="terrain">Terrain<br/>
-		      <input type="radio" name="map" value="hybrid">Hybrid<br/>
-		    </fieldset>
-		    <fieldset>
-		      <legend>Zoom Level</legend>
-  		      <input type="radio" name="zoom" value="10">Super Far<br/>
-  		      <input type="radio" name="zoom" value="12">Far<br/>
-  		      <input type="radio" name="zoom" value="15" checked>Normal<br/>
-  		      <input type="radio" name="zoom" value="18">Close<br/>
-  		      <input type="radio" name="zoom" value="20">Super Close<br/>
-  		     </fieldset>
-		      <button id="save_button">Save</button>
-	      </form>
-		</div>
-
-	</body>
+	</div>
+</div>
+</body>
 </html>
