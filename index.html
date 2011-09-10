@@ -3,27 +3,24 @@
 	<head>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
 		<title>SAP Tech Ed</title> 
+<!-- This area comes from PhoneGap's initial build - see http://build.phonegap.com -->
 		<link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
-		
 		<script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
-		
 		<script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
-		
 		<script src="assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
-		
 		<script src="assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
-		
 		<script src="assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
-		
 		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
-		
 		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
-		
 <!--		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script> -->
-			
+<!--End PhoneGap -->
+
+<!--This is what is needed for jQuery and jQuery Mobile-->
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-<!-- JQuery Load Stuff -->
+<!--End Jquery Stuff -->	
+
+<!--This is the start of our Demo Application-->
 <script type="text/javascript">
 function GetMultiplePlants(){
 			$.getJSON('http://lumber.corporate.paccoast.com:1080/sap/zjson_teched?callback=?',function(data){
@@ -42,7 +39,6 @@ function GetMultiplePlants(){
 				});
 			$.mobile.changePage("#blah");	
 			});
-			
 }
 </script>
 <script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>	
@@ -51,7 +47,7 @@ function GetMultiplePlants(){
 		GetMultiplePlants();
 		});
 </script>
-		
+
 	</head>
 <div data-role="page" id="MainPage">
 	<div data-role="header">
@@ -61,13 +57,16 @@ function GetMultiplePlants(){
 		<p>Loading....</p>
 	</div> <!-- /content -->
 </div> <!-- /MainPage -->
+
+<!-- This is the 'Page' that we are loading up in the javascript above GetMultiplePlants() -->
 <div data-role="page" id="blah">
-	<div data-role="header">
+	<div data-role="header"> 
 		<p>This is a list of plants in my company</p>
 	</div>
 	<div data-role="content">
 		<div id="PlantListing">
-	<!--	<div data-role="collapsible" id="PlantTemplate" data-collapsed="true">
+	<!-- Format of the content we are getting from the SAP ERP system
+			<div data-role="collapsible" id="PlantTemplate" data-collapsed="true">
 			<h1>Plant 1</h1>
 			<p>Details of Plant 1</p>
 			</div>
