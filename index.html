@@ -23,8 +23,8 @@
 <!--This is the start of our Demo Application-->
 <script type="text/javascript">
 function GetMultiplePlants(){
-//			$.getJSON('http://lumber.corporate.paccoast.com:1080/sap/zjson_teched?callback=?',function(data){
-			$.getJSON('assets/data/zjson_teched',function(data){
+			$.getJSON('http://lumber.corporate.paccoast.com:1080/sap/zjson_teched?callback=?',function(data){
+//			$.getJSON('assets/data/zjson_teched',function(data){
 				$.each(data.plants, function(i,plant){
 					var plantDetailDivId = plant.plantId+"detail";
 					var header = "<h3>"+plant.plantName+"</h3>";
