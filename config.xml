@@ -4,10 +4,10 @@
 	id		= "com.phonegap.getting.started"
 	version 	= "1.0.0">
 
-	<name>PhoneGap: TechEd Application</name>
+	<name>TechEd Application</name>
 
 	<description>
-		A quick tuturial for updating data
+		A little mobile app for TechEd 2011
 	</description>
 
 	<author href="http://evota.github.com"
