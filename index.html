@@ -16,7 +16,7 @@
 <!--End PhoneGap -->
 
 <!--This is what is needed for jQuery and jQuery Mobile-->
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 <!--End Jquery Stuff -->	
 
@@ -26,17 +26,18 @@ function GetMultiplePlants(){
 			$.getJSON('http://lumber.corporate.paccoast.com:1080/sap/zjson_teched?callback=?',function(data){
 //			$.getJSON('assets/data/zjson_teched',function(data){
 				$.each(data.plants, function(i,plant){
+					var plantListDivId = plant.plantId;
 					var plantDetailDivId = plant.plantId+"detail";
 					var header = "<h3>"+plant.plantName+"</h3>";
 					var address = "<p>"+ plant.plantStreet + "<br/>" +
 										plant.plantCity + ", " + plant.plantState + "  " + plant.plantZipCode +"</p>";				
 					var plantListDiv =
-										"<div data-role='collapsible' data-collapsed='true' id='"+plantDetailDivId+"'>" +			
+										"<div data-role='collapsible' data-collapsed='true' id='"+plantListDivId+"'>" +			
 										header +
 										address +
+										"<a href='http://www.paccoast.com' data-role='button' rel='external' target='_blank'>Read More</a>" +
 										"</div>";
 					$('#PlantListing').append(plantListDiv);
-					$('#MainPage').trigger("enhance");			
 				});
 			$.mobile.changePage("#blah");	
 			});
@@ -74,6 +75,13 @@ function GetMultiplePlants(){
 	-->
 		</div>
 	</div>
+	<!--Reload the existing page from scratch again.  Dynamic content in JqueryMobile is a bit odd-->
+		<div data-role="footer" class="ui-bar">
+		<a href="index.html" data-role="button" data-ajax="false">Refresh</a>
+		<a href="http://www.bestxperts.com" data-role="button" rel="external" target="_blank">About Us</a>
+		</div>
+
 </div>
+
 </body>
 </html>
