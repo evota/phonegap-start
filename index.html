@@ -4,6 +4,8 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
 		<title>SAP Tech Ed</title> 
 <!-- This area comes from PhoneGap's initial build - see http://build.phonegap.com -->
+<!-- You won't need this if you don't want to use Phonegap, the app itself doesn't use any of it.  I just came over -->
+<!-- from the git branch of phonegaps demo app-->
 		<link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
 		<script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
@@ -14,18 +16,31 @@
 		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
 <!--End PhoneGap -->
-
-<!--This is what is needed for jQuery and jQuery Mobile-->
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css" />
+<!--This is what is needed for jQuery and jQuery Mobile see http://jquerymobile.com for more information-->	
+<!-- Comment this section out if you want to package the jQuery code into your app instead of use their hosted version 
+	and uncomment the section below that says Local Jquery.  You may want to do this if you cannot connect to the internet on your mobile device
+    while also being connected to VPN -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.css" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-<!--End Jquery Stuff -->	
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.js"></script>
+
+<!--Local JQuery
+	<link rel="stylesheet" href="assets/js/jquery.mobile-1.0b3.min.css" />
+	<script type="text/javascript" src="assets/js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.mobile-1.0b3.min.js"></script>	
+-->	
+<!--End Jquery Code -->	
 
 <!--This is the start of our Demo Application-->
 <script type="text/javascript">
+/* The function GetMultiplePlants, makes a JSONP request to the SAP ABAP application server and creates a dynamic "page" in the DOM
+   by appending the HTMl to the div "PlantListing"
+*/
 function GetMultiplePlants(){
 			$.getJSON('http://lumber.corporate.paccoast.com:1080/sap/zjson_teched?callback=?',function(data){
-//			$.getJSON('assets/data/zjson_teched',function(data){
-				$.each(data.plants, function(i,plant){
+// You can comment the line above and uncomment the line below if you just want to work with a local json file
+//			$.getJSON('assets/data/zjson_teched',function(data){ //Gets the data from a local file
+				$.each(data.plants, function(i,plant){ 
 					var plantListDivId = plant.plantId;
 					var plantDetailDivId = plant.plantId+"detail";
 					var header = "<h3>"+plant.plantName+"</h3>";
@@ -39,18 +54,20 @@ function GetMultiplePlants(){
 										"</div>";
 					$('#PlantListing').append(plantListDiv);
 				});
+			//We do this here inside the JSON call because the JSONP request MUST be asynchronous.  If we don't, the code just executes and misses out
+			//on the jQueryMobile styling.  Still writes to the DOM to the "page" with the id 'blah' down below
 			$.mobile.changePage("#blah");	
 			});
 }
 </script>
-<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>	
 	<script type="text/javascript">
+//This tells the page to execute the function above before applying the jQuery mobile styling.	
 	$('#MainPage').live('pagebeforecreate', function() {
 		GetMultiplePlants();
 		});
 </script>
-
-	</head>
+</head>
+<!--This is our page that shows when the app starts up.  the "Loading" message could be enhanced with any old html-->
 <div data-role="page" id="MainPage">
 	<div data-role="header">
 		<h1>SAP TechEd 2011</h1>
@@ -67,7 +84,7 @@ function GetMultiplePlants(){
 	</div>
 	<div data-role="content">
 		<div id="PlantListing">
-	<!-- Format of the content we are getting from the SAP ERP system
+	<!-- Format of the content we are getting from the JSON call system
 			<div data-role="collapsible" id="PlantTemplate" data-collapsed="true">
 			<h1>Plant 1</h1>
 			<p>Details of Plant 1</p>
@@ -75,7 +92,8 @@ function GetMultiplePlants(){
 	-->
 		</div>
 	</div>
-	<!--Reload the existing page from scratch again.  Dynamic content in JqueryMobile is a bit odd-->
+	<!--Reload the existing page from scratch again.  Dynamic content in JqueryMobile is a bit odd as styling doesn't get automatically created-->
+	<!-- For this reason, we use the tag data-ajax="false" so that jQueryMobile reloads the entire page again-->
 		<div data-role="footer" class="ui-bar">
 		<a href="index.html" data-role="button" data-ajax="false">Refresh</a>
 		<a href="http://www.bestxperts.com" data-role="button" rel="external" target="_blank">About Us</a>
